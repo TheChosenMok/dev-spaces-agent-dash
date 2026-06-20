@@ -32,12 +32,14 @@ Production builds use the `/dev-spaces-agent-dash/` base path for GitHub Pages.
 
 Pushes to `main` trigger the [GitHub Actions workflow](.github/workflows/deploy-pages.yml), which builds and deploys to GitHub Pages.
 
-### First-time setup (required once)
+### First-time setup (required — do this in GitHub, not in code)
 
-The deploy job returns **404** until Pages is enabled in the repo:
+GitHub Pages **cannot** be turned on from the workflow. The repo owner must do this once in the browser:
 
-1. Open [Settings → Pages](https://github.com/TheChosenMok/dev-spaces-agent-dash/settings/pages)
-2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”)
-3. Re-run the workflow: **Actions → Deploy to GitHub Pages → Run workflow**
+1. Open **https://github.com/TheChosenMok/dev-spaces-agent-dash/settings/pages**
+2. Under **Build and deployment → Source**, choose **GitHub Actions** (not “Deploy from a branch”)
+3. Go to **Actions** → **Deploy to GitHub Pages** → **Run workflow**
 
-After a successful run, the site is at **https://thechosenmok.github.io/dev-spaces-agent-dash/**
+Until step 2 is done, deploy will fail with `404 Not Found`.
+
+After a successful run: **https://thechosenmok.github.io/dev-spaces-agent-dash/**
