@@ -10,11 +10,6 @@ interface MockTerminalProps {
   interactive?: boolean
 }
 
-const MODE_LABELS: Record<TerminalMode, { title: string; badge?: string }> = {
-  agent: { title: 'Agent CLI', badge: 'sandboxed' },
-  user: { title: 'Shell', badge: 'workspace' },
-}
-
 export function MockTerminal({ mode, script, scriptKey, interactive = false }: MockTerminalProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const { playScript, resetUserTerminal, fit } = useMockTerminal({
@@ -40,8 +35,6 @@ export function MockTerminal({ mode, script, scriptKey, interactive = false }: M
     return () => clearTimeout(timer)
   }, [fit, scriptKey, mode])
 
-  const { title, badge } = MODE_LABELS[mode]
-
   return (
     <div
       className="terminal-frame"
@@ -54,33 +47,6 @@ export function MockTerminal({ mode, script, scriptKey, interactive = false }: M
         overflow: 'hidden',
       }}
     >
-      <div
-        className="terminal-chrome"
-        style={{
-          flexShrink: 0,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          padding: '8px 14px',
-          background: TERMINAL_BG,
-        }}
-      >
-        <div style={{ display: 'flex', gap: 5 }}>
-          <span className="terminal-dot" style={{ background: '#ff5f57' }} />
-          <span className="terminal-dot" style={{ background: '#febc2e' }} />
-          <span className="terminal-dot" style={{ background: '#28c840' }} />
-        </div>
-        <span style={{ fontSize: 12, fontWeight: 500, color: '#808080' }}>{title}</span>
-        {badge && (
-          <span style={{
-            fontSize: 10, fontWeight: 500, color: '#666',
-            padding: '1px 6px', borderRadius: 'var(--radius-sm)',
-            background: 'rgba(255,255,255,0.06)',
-          }}>
-            {badge}
-          </span>
-        )}
-      </div>
       <div
         ref={containerRef}
         className="terminal-body"
